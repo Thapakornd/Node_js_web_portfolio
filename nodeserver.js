@@ -1,13 +1,22 @@
-const express = require('express'); //install express: Terminal > npm install express --save
-const app = express();
-const port = 3000;
+//before install nodejs : npm i
 
-//Creating App --> Pointer(=>{Object})
-app.get("/",(req,res) => {
-    res.send("Hello World");
+const express = require('express'); //express npm i express   
+const app = express()
+const port = 3000
+
+//use view ejs : npm i ejs
+app.set('view engine','ejs')
+
+//link to index page
+app.get('/',(req,res) => {
+    console.log('Here')
+    res.render("index", {text: "World"})
 })
 
-//Open Server
-app.listen(port,() => {
-    console.log("Server is listen on port:",port);
-})
+//link router to user.js
+const userRouter = require('./routes/users')
+
+app.use('/users', userRouter)
+
+//Open Server  
+app.listen(port)
